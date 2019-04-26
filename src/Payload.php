@@ -8,7 +8,7 @@ class Payload implements \JsonSerializable
     const KEY_TASKS = 'tasks';
 
     private $jobIdentifier;
-    private $taskPayloads;
+    private $taskPayloads = [];
 
     public function __construct(string $jobIdentifier, array $taskPayloads)
     {
@@ -18,6 +18,19 @@ class Payload implements \JsonSerializable
                 $this->taskPayloads[] = $taskPayload;
             }
         }
+    }
+
+    public function getJobIdentifier(): string
+    {
+        return $this->jobIdentifier;
+    }
+
+    /**
+     * @return TaskPayload[]
+     */
+    public function getTaskPayloads(): array
+    {
+        return $this->taskPayloads;
     }
 
     public function jsonSerialize(): array
