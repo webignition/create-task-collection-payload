@@ -9,6 +9,35 @@ use webignition\Uri\Uri;
 
 class TaskPayloadTest extends TestCase
 {
+    public function testGetUri()
+    {
+        $uri = new Uri('http://example.com/');
+
+        $taskPayload = new TaskPayload($uri, TypeInterface::HTML_VALIDATION, '');
+
+        $this->assertSame($uri, $taskPayload->getUri());
+    }
+
+    public function testGetType()
+    {
+        $type = TypeInterface::HTML_VALIDATION;
+
+        $taskPayload = new TaskPayload(new Uri('http://example.com/'), $type, '');
+
+        $this->assertSame($type, $taskPayload->getType());
+    }
+
+    public function testGetParameters()
+    {
+        $parameters = (string) json_encode([
+            'foo' => 'bar',
+        ]);
+
+        $taskPayload = new TaskPayload(new Uri('http://example.com/'), TypeInterface::HTML_VALIDATION, $parameters);
+
+        $this->assertSame($parameters, $taskPayload->getParameters());
+    }
+
     public function testJsonSerialize()
     {
         $uriString = 'http://example.com/';
