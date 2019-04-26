@@ -3,14 +3,17 @@
 namespace webignition\SfsResultModels\Tests;
 
 use PHPUnit\Framework\TestCase;
+use webignition\CreateTaskCollectionPayload\Payload;
 use webignition\CreateTaskCollectionPayload\TaskPayload;
 use webignition\CreateTaskCollectionPayload\TypeInterface;
 use webignition\Uri\Uri;
 
-class TaskPayloadTest extends TestCase
+class PayloadTest extends TestCase
 {
     public function testJsonSerialize()
     {
+        $jobIdentifier = 'x123';
+
         $uriString = 'http://example.com/';
         $uri = new Uri($uriString);
         $type = TypeInterface::HTML_VALIDATION;
@@ -20,20 +23,23 @@ class TaskPayloadTest extends TestCase
 
         $taskPayload = new TaskPayload($uri, $type, $parameters);
 
+        $payload = new Payload($jobIdentifier, [$taskPayload]);
+
         $expectedSerializedPayload = [
-            TaskPayload::KEY_URI => $uriString,
-            TaskPayload::KEY_TYPE => $type,
-            TaskPayload::KEY_PARAMETERS => $parameters,
+            Payload::KEY_JOB_IDENTIFIER => $jobIdentifier,
+            Payload::KEY_TASKS => [
+                $taskPayload,
+            ],
         ];
 
         $this->assertEquals(
             $expectedSerializedPayload,
-            $taskPayload->jsonSerialize()
+            $payload->jsonSerialize()
         );
 
         $this->assertEquals(
             json_encode($expectedSerializedPayload),
-            json_encode($taskPayload)
+            json_encode($payload)
         );
     }
 }
