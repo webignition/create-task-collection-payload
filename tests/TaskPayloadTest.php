@@ -14,7 +14,7 @@ class TaskPayloadTest extends TestCase
         $uriString = 'http://example.com/';
         $uri = new Uri($uriString);
         $type = TypeInterface::HTML_VALIDATION;
-        $parameters = json_encode([
+        $parameters = (string) json_encode([
             'foo' => 'bar',
         ]);
 
