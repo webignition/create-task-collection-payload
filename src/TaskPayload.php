@@ -21,6 +21,21 @@ class TaskPayload implements \JsonSerializable
         $this->parameters = $parameters;
     }
 
+    public function getUri(): UriInterface
+    {
+        return $this->uri;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function getParameters(): string
+    {
+        return $this->parameters;
+    }
+
     public function jsonSerialize(): array
     {
         return [
