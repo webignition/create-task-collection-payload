@@ -1,6 +1,6 @@
 <?php
 
-namespace webignition\SfsResultModels\Tests;
+namespace webignition\CreateTaskCollectionPayload\Tests;
 
 use PHPUnit\Framework\TestCase;
 use webignition\CreateTaskCollectionPayload\Payload;
